@@ -1,5 +1,7 @@
+"use client";
 import { Badge } from "@workspace/ui/components/badge";
-import { ArrowUpIcon, ArrowDownIcon } from "lucide-react";
+import { Button } from "@workspace/ui/components/button";
+import { ArrowDownIcon, ArrowUpIcon, EditIcon, EyeIcon, TrashIcon } from "lucide-react";
 
 export interface TransactionItemProps {
     title: string;
@@ -7,6 +9,8 @@ export interface TransactionItemProps {
     amount: number;
     createdAt: string;
     type: string
+    wallet?: string;
+    isSpecificPage?: boolean
 };
 
 export default function ItemTransactionCard({
@@ -15,7 +19,10 @@ export default function ItemTransactionCard({
     amount,
     createdAt,
     type,
+    wallet,
+    isSpecificPage
 }: TransactionItemProps) {
+
     return (
         <div
             key={title}
@@ -40,15 +47,34 @@ export default function ItemTransactionCard({
                         <Badge variant="outline" className="text-xs">
                             {category}
                         </Badge>
+                        {isSpecificPage && (
+                            <span className="text-xs text-muted-foreground">
+                                {wallet}
+                            </span>
+                        )}
                         <span className="text-xs text-muted-foreground">
                             {new Date(createdAt).toLocaleDateString('id-ID')}
                         </span>
                     </div>
                 </div>
             </div>
-            <div className={`font-semibold ${type === 'income' ? 'text-green-600' : 'text-red-600'}`}>
+            <div className={`text-right font-semibold ${type === 'income' ? 'text-green-600' : 'text-red-600'}`}>
                 {type === 'income' ? '+' : '-'}Rp {Math.abs(amount).toLocaleString('id-ID')}
+                {isSpecificPage && (
+                    <div className="flex items-center gap-2 ml-4">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-primary hover:text-primary/50">
+                            <EyeIcon className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-primary hover:text-primary/50">
+                            <EditIcon className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-red-600 hover:text-red-600/50">
+                            <TrashIcon className="h-4 w-4" />
+                        </Button>
+                    </div>
+                )}
             </div>
+
         </div>
     );
 };

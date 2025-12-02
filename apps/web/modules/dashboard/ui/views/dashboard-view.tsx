@@ -1,6 +1,9 @@
 "use client";
+import { mockData } from "@/modules/constants";
 import ActionCardButton from "@/modules/core-finance/ui/components/action-card-button";
 import OverviewCard from "@/modules/core-finance/ui/components/overview-card";
+import OverviewNoTransactionCard from "@/modules/core-finance/ui/components/overview-no-transaction-card";
+import OverviewNoWalletCard from "@/modules/core-finance/ui/components/overview-no-wallet-card";
 import OverviewTransactionCard from "@/modules/core-finance/ui/components/overview-transaction-card";
 import OverviewWalletCard from "@/modules/core-finance/ui/components/overview-wallet-card";
 import { Button } from "@workspace/ui/components/button";
@@ -16,25 +19,6 @@ import {
     TrendingUpIcon,
     WalletIcon
 } from "lucide-react";
-import Link from "next/link";
-
-const mockData = {
-    totalBalance: 15240000,
-    monthlyIncome: 8500000,
-    monthlyExpenses: 9740000,
-    netFlow: -1240000,
-    wallets: [
-        { title: "BCA Savings", balance: 12450000, currency: "IDR", type: "bank" },
-        { title: "Cash", balance: 2790000, currency: "IDR", type: "cash" },
-    ],
-    recentTransactions: [
-        { title: "Gaji Bulanan", amount: 8500000, type: "income", createdAt: "2024-03-25", category: "Salary" },
-        { title: "Bayar Listrik", amount: -450000, type: "expense", createdAt: "2024-03-24", category: "Utilities" },
-        { title: "Makan Siang", amount: -75000, type: "expense", createdAt: "2024-03-24", category: "Food" },
-        { title: "Bensin Motor", amount: -50000, type: "expense", createdAt: "2024-03-23", category: "Transportation" },
-        { title: "Freelance Project", amount: 2500000, type: "income", createdAt: "2024-03-22", category: "Freelance" },
-    ]
-};
 
 export default function DashboardPage() {
     const { totalBalance, monthlyIncome, monthlyExpenses, netFlow, wallets, recentTransactions } = mockData;
@@ -42,7 +26,7 @@ export default function DashboardPage() {
     const isPositive = netFlow >= 0;
 
     return (
-        <div className="space-y-6">
+        <div className="w-full space-y-6">
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
@@ -55,12 +39,6 @@ export default function DashboardPage() {
                         <CalendarIcon className="h-4 w-4" />
                         {monthYear}
                     </Button>
-                    <Button asChild className="gap-2 bg-primary hover:bg-primary/90">
-                        <Link href="/transactions/new">
-                            <PlusIcon className="h-4 w-4" />
-                            Add Transaction
-                        </Link>
-                    </Button>
                 </div>
             </div>
 
@@ -68,7 +46,8 @@ export default function DashboardPage() {
                 <OverviewCard
                     title="Total Balance"
                     subtitle="Across all wallets"
-                    balance={totalBalance}
+                    balance={totalBalance === 0 ? 0 : totalBalance}
+                    currency="Rp"
                     icon={WalletIcon}
                     gradient="from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20"
                 />
@@ -76,7 +55,8 @@ export default function DashboardPage() {
                 <OverviewCard
                     title="Monthly Income"
                     subtitle="This month"
-                    balance={monthlyIncome}
+                    balance={monthlyIncome === 0 ? 0 : monthlyIncome}
+                    currency="Rp"
                     icon={TrendingUpIcon}
                     prefix="+"
                     balanceColor="text-green-600"
@@ -87,7 +67,8 @@ export default function DashboardPage() {
                 <OverviewCard
                     title="Monthly Expenses"
                     subtitle="This month"
-                    balance={monthlyExpenses}
+                    balance={monthlyExpenses === 0 ? 0 : monthlyExpenses}
+                    currency="Rp"
                     icon={TrendingDownIcon}
                     prefix="-"
                     balanceColor="text-red-600"
@@ -99,21 +80,30 @@ export default function DashboardPage() {
                     title="Net Flow"
                     subtitle="Income - Expenses"
                     icon={isPositive ? ArrowUpIcon : ArrowDownIcon}
-                    balance={netFlow}
+                    balance={netFlow === 0 ? 0 : netFlow}
+                    currency="Rp"
                     autoColor
                 />
 
             </div>
 
             <div className="grid gap-6 lg:grid-cols-2">
-                <OverviewTransactionCard
-                    items={recentTransactions}
-                />
+                {recentTransactions.length === 0 ? (
+                    <OverviewNoTransactionCard />
+                ) : (
+                    <OverviewTransactionCard
+                        items={recentTransactions}
+                    />
+                )}
 
                 <div className="space-y-6">
-                    <OverviewWalletCard
-                        items={wallets}
-                    />
+                    {wallets.length === 0 ? (
+                        <OverviewNoWalletCard />
+                    ) : (
+                        <OverviewWalletCard
+                            items={wallets}
+                        />
+                    )}
 
                     <Card>
                         <CardHeader>

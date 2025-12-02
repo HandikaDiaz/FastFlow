@@ -7,6 +7,7 @@ interface OverviewCardProps {
     subtitle: string;
     balance: number;
     icon: ElementType;
+    currency: string;
     gradient?: string;
     autoColor?: boolean;
     balanceColor?: string;
@@ -20,6 +21,7 @@ export default function OverviewCard({
     subtitle,
     balance,
     icon: Icon,
+    currency,
     gradient,
     autoColor = false,
     balanceColor,
@@ -47,7 +49,7 @@ export default function OverviewCard({
             <CardContent>
                 <div className={cn("text-2xl font-bold", autoColor ? autobalanceColor : balanceColor)}>
                     {autoColor ? autoPrefix : prefix}
-                    Rp {Math.abs(balance).toLocaleString("id-ID")}
+                    {currency} {Math.abs(balance).toLocaleString("id-ID")}
                 </div>
 
                 <p className="text-xs text-muted-foreground">{subtitle}</p>
