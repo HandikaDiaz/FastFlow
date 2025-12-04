@@ -14,7 +14,7 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import OverviewCard from "../components/overview-card";
-import OverviewNoTransactionCard from "../components/overview-no-transaction-card";
+import OverviewNoTransactionCard from "../components/no-transaction-card";
 import OverviewTransactionCard from "../components/overview-transaction-card";
 
 const mockTransactions = [

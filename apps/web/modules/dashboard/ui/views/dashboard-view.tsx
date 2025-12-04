@@ -2,8 +2,8 @@
 import { mockData } from "@/modules/constants";
 import ActionCardButton from "@/modules/core-finance/ui/components/action-card-button";
 import OverviewCard from "@/modules/core-finance/ui/components/overview-card";
-import OverviewNoTransactionCard from "@/modules/core-finance/ui/components/overview-no-transaction-card";
-import OverviewNoWalletCard from "@/modules/core-finance/ui/components/overview-no-wallet-card";
+import OverviewNoTransactionCard from "@/modules/core-finance/ui/components/no-transaction-card";
+import OverviewNoWalletCard from "@/modules/core-finance/ui/components/no-wallet-card";
 import OverviewTransactionCard from "@/modules/core-finance/ui/components/overview-transaction-card";
 import OverviewWalletCard from "@/modules/core-finance/ui/components/overview-wallet-card";
 import { Button } from "@workspace/ui/components/button";
@@ -134,7 +134,6 @@ export default function DashboardPage() {
                             </div>
                         </CardContent>
                     </Card>
-
                 </div>
             </div>
         </div>
