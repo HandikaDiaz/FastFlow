@@ -3,7 +3,7 @@ import { Card, CardContent } from "@workspace/ui/components/card";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 
-export default function OverviewNoWalletCard() {
+export default function OverviewNoWalletBar() {
     return (
         <Card>
             <CardContent className="flex flex-col items-center justify-center py-12 text-center">

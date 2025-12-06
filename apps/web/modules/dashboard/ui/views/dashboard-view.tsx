@@ -3,9 +3,9 @@ import { mockData } from "@/modules/constants";
 import ActionCardButton from "@/modules/core-finance/ui/components/action-card-button";
 import OverviewCard from "@/modules/core-finance/ui/components/overview-card";
 import OverviewNoTransactionCard from "@/modules/core-finance/ui/components/no-transaction-card";
-import OverviewNoWalletCard from "@/modules/core-finance/ui/components/no-wallet-card";
+import OverviewWalletBar from "@/modules/core-finance/ui/components/no-wallet-card";
 import OverviewTransactionCard from "@/modules/core-finance/ui/components/overview-transaction-card";
-import OverviewWalletCard from "@/modules/core-finance/ui/components/overview-wallet-card";
+import OverviewNoWalletBar from "@/modules/core-finance/ui/components/overview-wallet-bar";
 import { Button } from "@workspace/ui/components/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/components/card";
 import { format } from "date-fns/format";
@@ -98,9 +98,9 @@ export default function DashboardPage() {
 
                 <div className="space-y-6">
                     {wallets.length === 0 ? (
-                        <OverviewNoWalletCard />
+                        <OverviewWalletBar />
                     ) : (
-                        <OverviewWalletCard
+                        <OverviewNoWalletBar
                             items={wallets}
                         />
                     )}

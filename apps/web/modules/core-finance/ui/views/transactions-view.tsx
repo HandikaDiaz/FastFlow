@@ -1,78 +1,18 @@
 "use client";
 import { Button } from "@workspace/ui/components/button";
-import { Card, CardContent } from "@workspace/ui/components/card";
-import { Input } from "@workspace/ui/components/input";
 import {
     ArrowDownIcon,
     ArrowUpIcon,
-    DownloadIcon,
     EyeIcon,
-    FilterIcon,
-    PlusIcon,
-    SearchIcon
+    PlusIcon
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import OverviewCard from "../components/overview-card";
+import FilterCard from "../components/filter-card";
 import OverviewNoTransactionCard from "../components/no-transaction-card";
+import OverviewCard from "../components/overview-card";
 import OverviewTransactionCard from "../components/overview-transaction-card";
-
-const mockTransactions = [
-    {
-        title: "Gaji Bulanan Maret",
-        amount: 8500000,
-        type: "income",
-        createdAt: "2024-03-25",
-        category: "Salary",
-        wallet: "BCA Savings",
-        currency: "IDR"
-    },
-    {
-        title: "Bayar Listrik PLN",
-        amount: -450000,
-        type: "expense",
-        createdAt: "2024-03-24",
-        category: "Utilities",
-        wallet: "BCA Savings",
-        currency: "IDR"
-    },
-    {
-        title: "Makan Siang dengan Tim",
-        amount: -75000,
-        type: "expense",
-        createdAt: "2024-03-24",
-        category: "Food & Dining",
-        wallet: "Cash",
-        currency: "IDR"
-    },
-    {
-        title: "Bensin Motor",
-        amount: -50000,
-        type: "expense",
-        createdAt: "2024-03-23",
-        category: "Transportation",
-        wallet: "Cash",
-        currency: "IDR"
-    },
-    {
-        title: "Freelance Web Development",
-        amount: 2500000,
-        type: "income",
-        createdAt: "2024-03-22",
-        category: "Freelance",
-        wallet: "BCA Savings",
-        currency: "IDR"
-    },
-    {
-        title: "Belanja Bulanan",
-        amount: -350000,
-        type: "expense",
-        createdAt: "2024-03-21",
-        category: "Shopping",
-        wallet: "BCA Savings",
-        currency: "IDR"
-    }
-];
+import { mockTransactions } from "@/modules/constants";
 
 export default function TransactionsPage() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -142,44 +82,14 @@ export default function TransactionsPage() {
                 />
             </div>
 
-            <Card>
-                <CardContent className="pt-6">
-                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                        <div className="flex flex-1 items-center gap-4">
-                            <div className="relative flex-1 max-w-sm">
-                                <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                                <Input
-                                    placeholder="Search transactions..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="pl-9"
-                                />
-                            </div>
+            <FilterCard
+                searchTitle="Search transactions..."
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                filterType={filterType}
+                setFilterType={setFilterType}
+            />
 
-                            <select
-                                value={filterType}
-                                onChange={(e) => setFilterType(e.target.value)}
-                                className="flex h-10 w-32 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                            >
-                                <option value="all">All Types</option>
-                                <option value="income">Income</option>
-                                <option value="expense">Expense</option>
-                            </select>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" className="gap-2">
-                                <FilterIcon className="h-4 w-4" />
-                                More Filters
-                            </Button>
-                            <Button variant="outline" size="sm" className="gap-2">
-                                <DownloadIcon className="h-4 w-4" />
-                                Export
-                            </Button>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
 
             {filteredTransactions.length === 0 ? (
                 <OverviewNoTransactionCard />

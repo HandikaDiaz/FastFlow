@@ -23,11 +23,7 @@ export default function OverviewTransactionCard({
                     Recent Transaction
                 </CardTitle>
 
-                {isTransactionsPage ? (
-                    <div>
-                        zonk
-                    </div>
-                ) : (
+                {!isTransactionsPage && (
                     <Button asChild variant="ghost">
                         <Link href="/transactions">
                             <EyeIcon className="h-4 w-4" />
@@ -36,6 +32,7 @@ export default function OverviewTransactionCard({
                     </Button>
                 )}
             </CardHeader>
+
             <CardContent className="space-y-4">
                 {items.map((item) => {
                     return (

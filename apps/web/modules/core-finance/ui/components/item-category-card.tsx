@@ -23,7 +23,6 @@ interface ItemCategoryCardProps {
 export default function ItemCategoryCard({
     item
 }: ItemCategoryCardProps) {
-    console.log("item", item);
     const getCategoryIcon = (icon: string) => {
         return <span className="text-lg">{icon}</span>;
     };
